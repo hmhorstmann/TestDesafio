@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Desafio: Xadrez</title>
+        
+        <style>
+
+            body {
+                font-family: OpenSans, Arial, sans-serif;
+                background-color: #e5e8e8;
+                color: #4e545c;
+                width: 80%;
+                padding: 16px;
+                margin-left: 32px;
+            }
+
+            body.dark-mode {
+                background-color: #000401;
+                color: #e5e8e8;
+            }
+
+            header {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            footer {
+                width: 100%;
+                background-color: #4e545c;
+                padding: 16px;
+                color: #e5e8e8;
+                position: fixed;
+                bottom: 0;
+                text-align: center;
+                font-weight: 400;
+            }
+
+            footer.dark-mode {
+                background-color: #8d9797;
+                color: #000401;
+            }
+
+            button {
+                border-radius: 40px;
+                font-size: 1rem;
+                height: 40px;
+                width: 100px;
+                border: none;
+                background-color: #4e545c;
+                color: #e5e8e8;
+                transition: all 0.5s linear;
+            }
+
+            button:hover {
+                background-color: #000401;
+            }
+
+            button.dark-mode {
+                background-color: #e5e8e8;
+                color: #4e545c;
+            }
+
+            button.dark-mode:hover {
+                background-color: #4e545c;
+                color: #e5e8e8;
+            }
+
+            table,
+            th {
+                border: 1px solid #bbb;
+                border-collapse: collapse;
+            }
+
+            table.dark-mode {
+                border: 1px solid #777;
+            }
+
+            th.dark-mode {
+                background-color: #e5e8e8;
+                color: #4e545c;
+                border: 1px solid #777;
+            }
+
+            th {
+                background-color: #000401;
+                color: #e5e8e8;
+                padding: 8px 0;
+            }
+
+            td.dark-mode {
+                background-color: #4e545c;
+                color: #e5e8e8;
+                border-left: 1px solid #777;
+            }
+
+            td {
+                background-color: #e5e8e8;
+                color: #4e545c;
+                border-left: 1px solid #bbb;
+                padding: 4px 0;
+                padding-left: 16px;
+            }
+
+            td.space.dark-mode {
+                background-color: #4e545c;
+                color: #4e545c;
+            }
+
+            td.space {
+                font-size: 0.5rem;
+                background-color: #e5e8e8;
+                color: #e5e8e8;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            table.chess {
+                width: 400px;
+            }
+
+            td.white {
+                background-color: white;
+                width: calc(80% / 8);
+                height: 0;
+                padding-bottom: calc(80% / 8);
+            }
+
+            td.black {
+                background-color: black;
+            }
+
+            .chess {
+                background-color: #4e545c;
+                color: #e5e8e8;
+            }
+
+            .chess.dark-mode {
+                background-color: #4e545c;
+                color: #e5e8e8;
+            }
+
+        </style>
+	</head>
+	<body>
+		<header>
+			<h1 id="page-title">Xadrez</h1>
+	        <button ariel-label="modo" id="mode-selector">Dark Mode</button>
+		</header>
+		<main>
+            <h2>Desafio</h2>
+			<p>
+				No tabuleiro de xadrez, a casa na linha 1, coluna 1 (canto superior esquerdo) é sempre branca e as cores das casas se alternam entre branca e preta, formando o formato tão conhecido como xadrez. Dessa forma, como o tabuleiro tradicional tem oito linhas e oito colunas, a casa na linha 8, coluna 8 (canto inferior direito) será também branca. Porém, neste problema, queremos ser capazes de predizer a cor independente do número de linhas e colunas, sendo: L linhas e C colunas. No exemplo da figura, para L = 6 e C = 9, a casa no canto inferior direito será preta, uma simples previsão matemática, não?
+            </p>
+
+            <h2>Entrada</h2>
+            <p>
+                A primeira linha da entrada contém um inteiro <strong>L</strong> (1 ≤ <strong>L</strong> ≤ 1000) indicando o número de linhas do tabuleiro.
+            </p>
+            <p>
+                A segunda linha da entrada contém um inteiro <strong>C</strong> (1 ≤ <strong>C</strong> ≤ 1000) representando o número de colunas.
+            </p>
+                
+            <h2>Saída</h2>
+            <p>
+                Imprima uma linha na saída. A linha deve conter um inteiro, representando a cor da casa no canto inferior direito do tabuleiro, e para identificar, considere o inteiro 1 para a cor branca e 0 para a cor preta.
+            </p>
+            <table>
+                <tr>
+                    <th>Exemplo de Entrada</th>
+                    <th>Exemplo de Saída</th>
+                </tr>
+                <tr>
+                    <td class="space">.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="space">.</td>
+                    <td></td>
+                </tr>
+            </table>
+            
+            <table>
+                <tr>
+                    <td class="space">Exemplo de Entrada</td>
+                    <td class="space">Exemplo de Saída</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="space">.</td>
+                    <td></td>
+                </tr>
+            </table>
+            
+            <table>
+                <tr>
+                    <td class="space">Exemplo de Entrada</td>
+                    <td class="space">Exemplo de Saída</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>91</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="space">.</td>
+                    <td></td>
+                </tr>
+            </table>
+		</main>
+        <script type="text/javascript">
+            // const divChess = document.createElement("div");
+            // divChess.setAttribute("class", "chess")
+            const h2 = document.getElementsByTagName("h2")[1];
+            const tableChess = document.createElement("table");
+            tableChess.setAttribute("class", "chess")
+            const theadChess = document.createElement("thead");
+            const tbodyChess = document.createElement("tbody");
+            const nColunas = 9;
+            const nLinhas = 6;
+
+            // divChess.appendChild(tableChess);
+            tableChess.appendChild(theadChess);
+            tableChess.appendChild(tbodyChess);
+
+            // document.getElementsByTagName("main")[0].appendChild(divChess);
+            // h2.before(divChess);
+            document.getElementsByTagName("main")[0].appendChild(tableChess);
+            h2.before(tableChess);
+
+            // Adding the entire table to the body tag
+
+            let trChessTH = document.createElement("tr");
+            let thChessTH = document.createElement("th");
+            thChessTH.setAttribute("colspan", `${nColunas + 1}`);
+            thChessTH.innerHTML = "Xadrez";
+            trChessTH.appendChild(thChessTH);
+            theadChess.appendChild(trChessTH);
+            tableChess.appendChild(theadChess);
+
+            let trChessNumbers = document.createElement("tr");
+            for (let i = 0; i <= nColunas; i++) {
+                let thChessNumbers = document.createElement("th");
+                thChessNumbers.setAttribute("class", "chess");
+                thChessNumbers.innerHTML = i;
+                trChessNumbers.appendChild(thChessNumbers);
+            }
+            tbodyChess.appendChild(trChessNumbers);
+
+            for (let i = 1; i <= nLinhas; i++) {
+                let trChess = document.createElement("tr");
+                let thChess = document.createElement("th");
+                thChess.setAttribute("class", "chess");
+                thChess.innerHTML = i;
+                trChess.appendChild(thChess);
+                for (let j = 1; j <= nColunas; j++) {
+                    let tdChess = document.createElement("td");
+                    if (i % 2 == j % 2) {
+                        tdChess.classList.add("white");
+                    } else {
+                        tdChess.classList.add("black");
+                    }
+                    trChess.appendChild(tdChess);
+                }
+                tbodyChess.appendChild(trChess);
+            }
+            tableChess.appendChild(tbodyChess);
+            // divChess.appendChild(tableChess);
+
+            const button = document.getElementById("mode-selector")
+            const body = document.querySelector("body")
+            const h1 = document.getElementById("page-title")
+            const table = Array.from(document.getElementsByTagName("table"))
+            const th = Array.from(document.getElementsByTagName("th"))
+            const td = Array.from(document.getElementsByTagName("td"))
+            const darkModeClass = "dark-mode"
+
+            changeMode()
+            button.addEventListener("click", changeMode)
+
+            function changeMode() {
+                changeClasses()
+                changeTexts()
+            }
+
+            function changeClasses() {
+                button.classList.toggle(darkModeClass)
+                body.classList.toggle(darkModeClass)
+                h1.classList.toggle(darkModeClass)
+                table.forEach((item) => {
+                    item.classList.toggle(darkModeClass)
+                })
+                th.forEach((item) => {
+                    item.classList.toggle(darkModeClass)
+                })
+                td.forEach((item) => {
+                    item.classList.toggle(darkModeClass)
+                })
+            }
+
+            function changeTexts() {
+                const lightModeText = "Light Mode"
+                const darkModeText = "Dark Mode"
+
+                if (button.classList.contains(darkModeClass)) {
+                    button.innerHTML = lightModeText
+                } else {
+                    button.innerHTML = darkModeText
+                }
+            }
+        </script>
+        <script type="text/javascript" src="./script.js"></script>
+	</body>
+</html>
