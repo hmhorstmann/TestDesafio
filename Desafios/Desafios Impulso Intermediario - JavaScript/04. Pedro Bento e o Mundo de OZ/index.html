@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Desafio: Pedro Bento e o Mundo de OZ</title>
+        
+        <style>
+
+            body {
+                font-family: OpenSans,Arial,sans-serif;
+                background-color: #e5e8e8;
+                color: #4e545c;
+                width: 80%; 
+                padding: 16px; 
+                margin-left: 32px;
+            }
+
+            body.dark-mode {
+                background-color: #000401;
+                color: #e5e8e8;
+            }
+
+            header {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            footer {
+                width: 100%;
+                background-color: #4e545c;
+                padding: 16px;
+                color: #e5e8e8;
+                position: fixed;
+                bottom: 0;
+                text-align: center;
+                font-weight: 400;
+            }
+
+            footer.dark-mode {
+                background-color: #8d9797;
+                color: #000401;
+            }
+
+            button {
+                border-radius: 40px;
+                font-size: 1rem;
+                height: 40px;
+                width: 100px;
+                border: none;
+                background-color: #4e545c;
+                color: #e5e8e8;
+                transition: all 0.5s linear;
+            }
+
+            button:hover {
+                background-color: #000401;
+            }
+
+            button.dark-mode {
+                background-color: #e5e8e8;
+                color: #4e545c;
+            }
+
+            button.dark-mode:hover {
+                background-color: #4e545c;
+                color: #e5e8e8;
+            }
+
+            table, th{
+                border: 1px solid #bbb;
+                border-collapse: collapse;
+            }
+
+            table.dark-mode {
+                border: 1px solid #777;
+            }
+
+            th.dark-mode {
+                background-color: #e5e8e8;
+                color: #4e545c;
+                border: 1px solid #777;
+            }
+
+            th {
+                background-color: #000401;
+                color: #e5e8e8;
+                padding: 8px 0;
+            }
+
+            td.dark-mode {
+                background-color: #4e545c;
+                color: #e5e8e8;
+                border-left: 1px solid #777;
+            }
+
+            td {
+                background-color: #e5e8e8;
+                color: #4e545c;
+                border-left: 1px solid #bbb;
+                padding: 4px 0;
+                padding-left: 16px;
+            }
+
+            td.space.dark-mode {
+                background-color: #4e545c;
+                color: #4e545c;
+            }
+
+            td.space {
+                font-size: 0.5rem;
+                background-color: #e5e8e8;
+                color: #e5e8e8;
+            }
+
+            table {
+                width: 100%;
+            }
+        </style>
+	</head>
+	<body>
+        <header>
+            <h1 id="page-title">Pedro Bento e o Mundo de OZ</h1>
+            <button ariel-label="modo" id="mode-selector">Dark Mode</button>
+        </header>
+        <main>
+            <h2>Desafio</h2>
+            <p>
+                No jogo, O Mundo de Oz, Pedro Bento é o líder do Tribunal, por causa disso ele é uma das pessoas mais importantes do mundo, no jogo. Além disso, Pedro Bento possui um grande tesouro, o qual possui diversos tipos de joias.
+            </p>
+            <p>
+                Pedro Bento está muito curioso para saber quantos tipos de joias diferentes seu tesouro possui.
+            </p>
+            <p>
+                Sabendo que você é o melhor programador do mundo, Pedro Bento te contratou para verificar quantos tipos de joias distintas ele tem em seu tesouro.
+            </p>
+        
+            <h2>Entrada</h2>
+            <p>
+                A entrada consiste de várias linhas e cada uma contém uma string que descreve uma das joias de Pedro Bento. Essa string é composta apenas dos caracteres '(' e ')', a soma do tamanho de todas as string não excede 106.
+            </p>
+        
+            <h2>Saída</h2>
+            <p>
+                Imprima quantos tipos de joias distintas Pedro Bento possui.
+            </p>
+            <table>
+                <tr>
+                    <th>Exemplo de Entrada</th>
+                    <th>Exemplo de Saída</th>
+                </tr>
+                <tr>
+                    <td class="space">.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>((</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>))</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>((</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>))</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>(</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="space">.</td>
+                    <td></td>
+                </tr>
+            </table>
+        </main>
+        <script type="text/javascript">
+            const button = document.getElementById("mode-selector")
+            const body = document.querySelector("body")
+            const h1 = document.getElementById("page-title")
+            const table = Array.from(document.getElementsByTagName("table"))
+            const th = Array.from(document.getElementsByTagName("th"))
+            const td = Array.from(document.getElementsByTagName("td"))
+            const darkModeClass = "dark-mode"
+            changeMode()
+            button.addEventListener("click", changeMode)
+        
+            function changeMode() {
+                changeClasses()
+                changeTexts()
+            }
+        
+            function changeClasses() {
+                button.classList.toggle(darkModeClass)
+                body.classList.toggle(darkModeClass)
+                h1.classList.toggle(darkModeClass)
+                table.forEach((item) => {
+                    item.classList.toggle(darkModeClass)
+                })
+                th.forEach((item) => {
+                    item.classList.toggle(darkModeClass)
+                })
+                td.forEach((item) => {
+                    item.classList.toggle(darkModeClass)
+                })
+            }
+        
+            function changeTexts() {
+                const lightModeText = "Light Mode"
+                const darkModeText = "Dark Mode"
+                if (button.classList.contains(darkModeClass)) {
+                    button.innerHTML = lightModeText
+                } else {
+                    button.innerHTML = darkModeText
+                }
+            }
+        </script>
+        <script type="text/javascript" src="./script.js"></script>
+	</body>
+</html>
